@@ -1,0 +1,27 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_instance.ieco-web (expand)" [label = "aws_instance.ieco-web", shape = "box"]
+		"[root] aws_network_interface.foo (expand)" [label = "aws_network_interface.foo", shape = "box"]
+		"[root] aws_security_group.prod-ieco (expand)" [label = "aws_security_group.prod-ieco", shape = "box"]
+		"[root] aws_subnet.prod_db (expand)" [label = "aws_subnet.prod_db", shape = "box"]
+		"[root] aws_subnet.prod_web (expand)" [label = "aws_subnet.prod_web", shape = "box"]
+		"[root] aws_vpc.example (expand)" [label = "aws_vpc.example", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] aws_instance.ieco-web (expand)" -> "[root] aws_network_interface.foo (expand)"
+		"[root] aws_network_interface.foo (expand)" -> "[root] aws_security_group.prod-ieco (expand)"
+		"[root] aws_network_interface.foo (expand)" -> "[root] aws_subnet.prod_db (expand)"
+		"[root] aws_security_group.prod-ieco (expand)" -> "[root] aws_vpc.example (expand)"
+		"[root] aws_subnet.prod_db (expand)" -> "[root] aws_vpc.example (expand)"
+		"[root] aws_subnet.prod_web (expand)" -> "[root] aws_vpc.example (expand)"
+		"[root] aws_vpc.example (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_instance.ieco-web (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_subnet.prod_web (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_instance.ieco-web (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_subnet.prod_web (expand)"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
